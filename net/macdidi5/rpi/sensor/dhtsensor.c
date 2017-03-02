@@ -55,31 +55,31 @@ int readDHT(int dhtPin, float *temp_p, float *hum_p) {
         // ignore first 3 transitions
         if ((i >= 4) && (i % 2 == 0)) {
             // shove each bit into the storage bytes
-            dht_dat[j / 8] <<= 1;
+            dht_data[j / 8] <<= 1;
             
             if (counter > 16)
-                dht_dat[j / 8] |= 1;
+                dht_data[j / 8] |= 1;
             j++;
         }
     }
 
     // check we read 40 bits (8bit x 5 ) + verify checksum in the last byte
     // print it out if data is good
-    if ((j >= 40) && (dht_dat[4] == 
-            ((dht_dat[0] + dht_dat[1] + dht_dat[2] + dht_dat[3]) & 0xFF))) {
-        float h = (float)((dht_dat[0] << 8) + dht_dat[1]) / 10;
+    if ((j >= 40) && (dht_data[4] == 
+            ((dht_data[0] + dht_data[1] + dht_data[2] + dht_data[3]) & 0xFF))) {
+        float h = (float)((dht_data[0] << 8) + dht_data[1]) / 10;
 	
         if ( h > 100 ) {
-            h = dht_dat[0];	// for DHT11
+            h = dht_data[0];	// for DHT11
 	}
         
-	float c = (float)(((dht_dat[2] & 0x7F) << 8) + dht_dat[3]) / 10;
+	float c = (float)(((dht_data[2] & 0x7F) << 8) + dht_data[3]) / 10;
 		
         if ( c > 125 ) {
-            c = dht_dat[2];	// for DHT11
+            c = dht_data[2];	// for DHT11
 	}
         
-	if ( dht_dat[2] & 0x80 ) {
+	if ( dht_data[2] & 0x80 ) {
             c = -c;
 	}
         
