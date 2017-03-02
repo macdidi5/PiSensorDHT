@@ -1,6 +1,6 @@
 # Raspberry Pi DHT11, 22 Java Library
 
-Install DHT11 JNI library:
+Install DHT JNI library:
 
     cd ~
     git clone git://github.com/macdidi5/PiSensorDHT.git
